@@ -66,7 +66,7 @@ github.addEventListener('touchstart',(e)=>{
     if(move <= max && touch){
         hover = true;
     }
-})
+},{passive: false})
 
 github.addEventListener('touchend',()=>{
     touch = true;
