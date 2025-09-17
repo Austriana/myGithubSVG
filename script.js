@@ -4,6 +4,7 @@ const max = 100;
 const speed = 10;
 let move = 0;
 let hover = false;
+let touch = false;
 let githubSVG = `
         M911 0
         C1414 0 1822 414 1822 925
@@ -45,13 +46,28 @@ let githubSVG = `
 githubPath.setAttribute('d', githubSVG);
 github.style.fill = 'white';
 
+github.addEventListener('touchstart',()=>{
+    touch = true;
+    if(move <= max){
+        hover = true;
+    }
+})
+
+github.addEventListener('touchend',()=>{
+    touch = false;
+    if(move <= max){
+        hover = false;
+    }
+})
+
 github.addEventListener('mouseenter',()=>{
-        if(move <= max){
+        if(move <= max && !touch){
             hover = true;
         }
 })
+
 github.addEventListener('mouseleave',()=>{
-        if(move >= 0){
+        if(move >= 0 && !touch){
             hover = false;
         }
 })
