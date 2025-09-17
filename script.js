@@ -46,30 +46,33 @@ let githubSVG = `
 githubPath.setAttribute('d', githubSVG);
 github.style.fill = 'white';
 
-github.addEventListener('touchstart',()=>{
-    touch = true;
-    if(move <= max){
-        hover = true;
-    }
-})
-
-github.addEventListener('touchend',()=>{
-    touch = false;
-    if(move <= max){
-        hover = false;
-    }
-})
+window.addEventListener('touchstart', () => touch = true)
+window.addEventListener('mousemove', () => touch = false)
 
 github.addEventListener('mouseenter',()=>{
-        if(move <= max && !touch){
-            hover = true;
-        }
+    if(move <= max && !touch){
+        hover = true;
+    }
 })
 
 github.addEventListener('mouseleave',()=>{
         if(move >= 0 && !touch){
             hover = false;
         }
+})
+
+github.addEventListener('touchstart',(e)=>{
+    touch = true;
+    if(move <= max && touch){
+        hover = true;
+    }
+})
+
+github.addEventListener('touchend',()=>{
+    touch = true;
+    if(move <= max && touch){
+        hover = false;
+    }
 })
 
 function update(){
