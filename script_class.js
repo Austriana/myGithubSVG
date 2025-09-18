@@ -1,4 +1,3 @@
-
 class SVG{
     constructor(id, idPath){
         this.doc= document.getElementById(id);
@@ -9,48 +8,47 @@ class SVG{
         this.hover= false;
         this.touch= false;
 
-        window.addEventListener('touchstart', () => this.touch = true)
-        window.addEventListener('mousemove', () => this.touch = false)
+        window.addEventListener('touchstart', () => this.touch = true);
+        window.addEventListener('mousemove', () => this.touch = false);
 
         this.doc.addEventListener('mouseenter',()=>{
             if(this.move <= this.max && !this.touch){
                 this.hover = true;
-            }
-        })
+            };
+        });
 
         this.doc.addEventListener('mouseleave',()=>{
                 if(this.move >= 0 && !this.touch){
                     this.hover = false;
-                }
-        })
+                };
+        });
 
         this.doc.addEventListener('touchstart',()=>{
             this.touch = true;
             if(this.move <= this.max && this.touch){
                 this.hover = true;
-            }
-        },{passive: true})
+            };
+        },{passive: true});
 
         this.doc.addEventListener('touchend',()=>{
             this.touch = true;
             if(this.move <= this.max && this.touch){
                 this.hover = false;
-            }
-        })
+            };
+        });
+    };
 
-    }
     update(){
         if(this.move < this.max && this.hover){
         this.move +=1 * this.speed;
-        }
+        };
         if (this.move > 0 && !this.hover){
             this.move -=1 * this.speed;
-        }
-    }
-}
+        };
+    };
+};
 const github = new SVG('github', 'githubPath');
-
-function animate(){
+function update(){
     github.update();
     github.svg = `
         M911 0
@@ -92,6 +90,10 @@ function animate(){
         C0 414 407 0 911 0Z`;
     github.path.setAttribute('d', github.svg);
 
-    requestAnimationFrame(animate);
 }
+
+function animate(){
+    update();
+    requestAnimationFrame(animate);
+};
 animate();
